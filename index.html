@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toca la Caja</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .caja {
+            width: 200px;
+            height: 200px;
+            background-color: #3498db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="caja">Tócame!</div>
+
+    <script>
+        const caja = document.querySelector('.caja');
+
+        caja.addEventListener('touchstart', function() {
+            // Cambiar color aleatorio
+            const colores = ['#e74c3c', '#9b59b6', '#2ecc71', '#f39c12', '#1abc9c'];
+            const colorAleatorio = colores[Math.floor(Math.random() * colores.length)];
+            
+            caja.style.backgroundColor = colorAleatorio;
+            caja.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                caja.style.transform = 'scale(1)';
+            }, 200);
+        });
+    </script>
+</body>
+</html>
