@@ -12,6 +12,7 @@
             background-color: #1a1a1a;
             overflow: hidden;
             touch-action: none;
+            text-align: center;
         }
 
         .circulo {
@@ -34,6 +35,9 @@
     </style>
 </head>
 <body>
+
+    <h1 style="color: aliceblue;">Toca la pantalla</h1>
+
     <script>
         document.body.addEventListener('touchstart', function(e) {
             e.preventDefault();
@@ -42,14 +46,12 @@
                 crearCirculo(touch.clientX, touch.clientY);
             }
         });
-        document.body.addEventListener('click', function(e) {
-            crearCirculo(e.clientX, e.clientY);
-        });
 
         function crearCirculo(x, y) {
             const circulo = document.createElement('div');
             circulo.className = 'circulo';
             const tamaño = Math.random() * 120 + 30;
+            
             const colores = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', 
                            '#a29bfe', '#fd79a8', '#fdcb6e', '#e17055', '#00b894'];
             const color = colores[Math.floor(Math.random() * colores.length)];
@@ -60,7 +62,6 @@
             circulo.style.left = (x - tamaño / 2) + 'px';
             circulo.style.top = (y - tamaño / 2) + 'px';
             document.body.appendChild(circulo);
-            
             setTimeout(() => {
                 circulo.remove();
             }, 800);
