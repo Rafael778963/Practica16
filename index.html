@@ -3,51 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toca la Caja</title>
+    <title>Círculos Táctiles</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            padding: 0;
+            height: 100vh;
+            background-color: #1a1a1a;
+            overflow: hidden;
+            touch-action: none;
         }
 
-        .caja {
-            width: 200px;
-            height: 200px;
-            background-color: #3498db;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 24px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.2s;
+        .circulo {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: aparecer 0.8s ease-out forwards;
+        }
+
+        @keyframes aparecer {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="caja">Tócame!</div>
-
     <script>
-        const caja = document.querySelector('.caja');
+        document.body.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            for (let i = 0; i < e.touches.length; i++) {
+                const touch = e.touches[i];
+                crearCirculo(touch.clientX, touch.clientY);
+            }
+        });
+        document.body.addEventListener('click', function(e) {
+            crearCirculo(e.clientX, e.clientY);
+        });
 
-        caja.addEventListener('touchstart', function() {
-            // Cambiar color aleatorio
-            const colores = ['#e74c3c', '#9b59b6', '#2ecc71', '#f39c12', '#1abc9c'];
-            const colorAleatorio = colores[Math.floor(Math.random() * colores.length)];
+        function crearCirculo(x, y) {
+            const circulo = document.createElement('div');
+            circulo.className = 'circulo';
+            const tamaño = Math.random() * 120 + 30;
+            const colores = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', 
+                           '#a29bfe', '#fd79a8', '#fdcb6e', '#e17055', '#00b894'];
+            const color = colores[Math.floor(Math.random() * colores.length)];
             
-            caja.style.backgroundColor = colorAleatorio;
-            caja.style.transform = 'scale(0.9)';
+            circulo.style.width = tamaño + 'px';
+            circulo.style.height = tamaño + 'px';
+            circulo.style.backgroundColor = color;
+            circulo.style.left = (x - tamaño / 2) + 'px';
+            circulo.style.top = (y - tamaño / 2) + 'px';
+            document.body.appendChild(circulo);
             
             setTimeout(() => {
-                caja.style.transform = 'scale(1)';
-            }, 200);
-        });
+                circulo.remove();
+            }, 800);
+        }
     </script>
 </body>
 </html>
